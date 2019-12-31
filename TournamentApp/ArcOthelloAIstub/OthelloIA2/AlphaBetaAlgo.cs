@@ -8,6 +8,14 @@ namespace OthelloAIstub
 {
     class AlphaBetaAlgo
     {
+        /// <summary>
+        /// Alphabeta algortihm
+        /// </summary>
+        /// <param name="root">A root node</param>
+        /// <param name="depth">Max depth</param>
+        /// <param name="minOrMax">Min or max node</param>
+        /// <param name="parentvalue">Value of parent node</param>
+        /// <returns>return a tuple, the first tuple value is the score of the move, the second value is a tuple wich represent a move</returns>
         public static Tuple<int, Tuple<int, int>> Alphabeta(TreeNode root, int depth, int minOrMax, int parentvalue)
         {
             if (depth == 0 || root.isFinal())

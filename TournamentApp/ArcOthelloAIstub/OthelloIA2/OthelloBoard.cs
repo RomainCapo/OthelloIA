@@ -85,11 +85,11 @@ namespace IAStub
         public string GetName() { return "CapocasaleMoulin"; }
 
         /// <summary>
-        /// plays randomly amon the possible moves
+        /// Play a move with the alphabeta algo
         /// </summary>
-        /// <param name="game"></param>
-        /// <param name="level"></param>
-        /// <param name="whiteTurn"></param>
+        /// <param name="game">the current board</param>
+        /// <param name="level">max depth for the algo</param>
+        /// <param name="whiteTurn">indicated if is white turn or not</param>
         /// <returns>The move it will play, will return {P,0} if it has to PASS its turn (no move is possible)</returns>
         public Tuple<int, int> GetNextMove(int[,] game, int level, bool whiteTurn)
         {
@@ -101,6 +101,7 @@ namespace IAStub
              }
              else
              {
+                // Create the root node and pass them to the alphabeta algo
                  TreeNode root = new TreeNode(this, whiteTurn);
                  Tuple<int, Tuple<int, int>> move = AlphaBetaAlgo.Alphabeta(root, level, 1, int.MaxValue);
                  return move.Item2;
