@@ -1,9 +1,6 @@
 ﻿using OthelloAIstub;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IAStub
 {
@@ -27,7 +24,7 @@ namespace IAStub
         public bool GameFinish { get; set; }
 
         public static readonly int[,] SCORE_MATRIX = new int[9, 7] {
-                            {   4,   -3,    2,    2,    2,   -3,    4},
+                            {   6,   -3,    2,    2,    2,   -3,    6},
                             {  -3,   -4,    0,    0,    0,   -4,   -3},
                             {   3,    0,    1,    1,    1,    0,    3},
                             {   1,    0,    1,    1,    1,    0,    1},
@@ -35,7 +32,7 @@ namespace IAStub
                             {   1,    0,    1,    1,    1,    0,    1},
                             {   3,    0,    1,    1,    1,    0,    3},
                             {  -3,   -4,    0,    0,    0,   -4,   -3},
-                            {   4,   -3,    2,    2,    2,   -3,    4},
+                            {   6,   -3,    2,    2,    2,   -3,    6},
          };
 
         public OthelloBoard()

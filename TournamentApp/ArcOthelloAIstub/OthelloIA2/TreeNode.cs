@@ -46,15 +46,21 @@ namespace OthelloAIstub
                 }
             }
 
-            //Return 0 if the score is smaller or equal that 0 otherwise return the score
-            if(score <= 0)
+            //If the state is final, 
+            if(isFinal())
             {
-                return 0;
+                //If the score is positive, the user win
+                if (score > 0)
+                {
+                    return Int32.MaxValue;
+                }
+                else//If the score is negative, the user loose
+                {
+                    return Int32.MinValue;
+                }
             }
-            else
-            {
-                return score;
-            }
+
+            return score;
         }
 
         /// <summary>
