@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace IACapocasaleMoulin
+namespace IAStub
 {
 
     // Tile states
@@ -24,20 +24,20 @@ namespace IACapocasaleMoulin
         public bool GameFinish { get; set; }
 
         public static readonly int[,] SCORE_MATRIX = new int[9, 7] {
-            {   6,   -3,    2,    2,    2,   -3,    6},
-            {  -3,   -4,    0,    0,    0,   -4,   -3},
-            {   3,    0,    1,    1,    1,    0,    3},
-            {   1,    0,    1,    1,    1,    0,    1},
-            {   3,    0,    1,    1,    1,    0,    3},
-            {   1,    0,    1,    1,    1,    0,    1},
-            {   3,    0,    1,    1,    1,    0,    3},
-            {  -3,   -4,    0,    0,    0,   -4,   -3},
-            {   6,   -3,    2,    2,    2,   -3,    6},
+                            {   6,   -3,    2,    2,    2,   -3,    6},
+                            {  -3,   -4,    0,    0,    0,   -4,   -3},
+                            {   3,    0,    1,    1,    1,    0,    3},
+                            {   1,    0,    1,    1,    1,    0,    1},
+                            {   3,    0,    1,    1,    1,    0,    3},
+                            {   1,    0,    1,    1,    1,    0,    1},
+                            {   3,    0,    1,    1,    1,    0,    3},
+                            {  -3,   -4,    0,    0,    0,   -4,   -3},
+                            {   6,   -3,    2,    2,    2,   -3,    6},
          };
 
         public OthelloBoard()
         {
-            InitBoard();
+            initBoard();
         }
 
         public OthelloBoard(int[,] board)
@@ -55,7 +55,7 @@ namespace IACapocasaleMoulin
                 Console.Write($"{(line + 1)}");
                 for (int col = 0; col < BOARDSIZE_X; col++)
                 {
-                    Console.Write((theBoard[col, line] == (int)TileState.EMPTY) ? " -" : (theBoard[col, line] == (int)TileState.WHITE) ? " O" : " X");
+                    Console.Write((theBoard[col, line] == (int)IAStub.TileState.EMPTY) ? " -" : (theBoard[col, line] == (int)IAStub.TileState.WHITE) ? " O" : " X");
                 }
                 Console.Write("\n");
             }
@@ -165,7 +165,7 @@ namespace IACapocasaleMoulin
                 }
             }
             //Console.WriteLine("CATCH DIRECTIONS:" + catchDirections.Count);
-            ComputeScore();
+            computeScore();
             return playable;
         }
 
@@ -274,7 +274,7 @@ namespace IACapocasaleMoulin
 
        
 
-        private void InitBoard()
+        private void initBoard()
         {
             for (int i = 0; i < BOARDSIZE_X; i++)
                 for (int j = 0; j < BOARDSIZE_Y; j++)
@@ -285,10 +285,10 @@ namespace IACapocasaleMoulin
             theBoard[3, 4] = (int)TileState.BLACK;
             theBoard[4, 3] = (int)TileState.BLACK;
 
-            ComputeScore();
+            computeScore();
         }
 
-        private void ComputeScore()
+        private void computeScore()
         {
             whiteScore = 0;
             blackScore = 0;
@@ -299,7 +299,8 @@ namespace IACapocasaleMoulin
                 else if (v == (int)TileState.BLACK)
                     blackScore++;
             }
-            GameFinish = ((whiteScore == 0) || (blackScore == 0) || (whiteScore + blackScore == 63));
+            GameFinish = ((whiteScore == 0) || (blackScore == 0) ||
+                        (whiteScore + blackScore == 63));
         }
     }
 

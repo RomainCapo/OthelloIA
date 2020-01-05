@@ -14,7 +14,7 @@ namespace OthelloAIstub
         /// <returns>return a tuple, the first tuple value is the score of the move, the second value is a tuple wich represent a move</returns>
         public static Tuple<int, Tuple<int, int>> Alphabeta(TreeNode root, int depth, int minOrMax, int parentvalue)
         {
-            if (depth == 0 || root.IsFinal())
+            if (depth == 0 || root.isFinal())
             {
                 return new Tuple<int, Tuple<int, int>>(root.Score(), null);
             }
@@ -25,6 +25,7 @@ namespace OthelloAIstub
             foreach (Tuple<int, int> move in root.ListOps())
             {
                 TreeNode newNode = root.ApplyOp(move);
+
                 Tuple<int, Tuple<int, int>> newMove = Alphabeta(newNode, depth - 1, -minOrMax, optVal);
 
                 if ((newMove.Item1 * minOrMax) > (optVal * minOrMax))
