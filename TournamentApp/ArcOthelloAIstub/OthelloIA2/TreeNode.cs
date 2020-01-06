@@ -47,8 +47,18 @@ namespace OthelloAIstub
                 }
             }
 
+            Tuple<int, int> nbPawns = OthelloBoard.CountPawn(theBoard);
+
+            score += 25 * ((nbPawns.Item1 + nbPawns.Item2) % 2);//Add a weight if the current user play the last move
+
+            score += 25 * ((nbPawns.Item1 - nbPawns.Item2) / (nbPawns.Item1 + nbPawns.Item2));//Add a weight from the pawn parity
+
+            Tuple<int, int> nbCorners = OthelloBoard.CountPawn(theBoard);
+
+            score += 25 * (nbCorners.Item1 - nbCorners.Item2) / (nbCorners.Item1 + nbCorners.Item2);//Add weight from the number of captured corner
+
             // If the state is final
-            if(IsFinal())
+            if (IsFinal())
             {
                 // If the score is positive, the user win
                 if (score > 0)

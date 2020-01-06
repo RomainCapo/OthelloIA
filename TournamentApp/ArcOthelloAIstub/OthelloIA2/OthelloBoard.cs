@@ -24,15 +24,15 @@ namespace IACapocasaleMoulin
         public bool GameFinish { get; set; }
 
         public static readonly int[,] SCORE_MATRIX = new int[9, 7] {
-            {   6,   -3,    2,    2,    2,   -3,    6},
-            {  -3,   -4,    0,    0,    0,   -4,   -3},
-            {   3,    0,    1,    1,    1,    0,    3},
-            {   1,    0,    1,    1,    1,    0,    1},
-            {   3,    0,    1,    1,    1,    0,    3},
-            {   1,    0,    1,    1,    1,    0,    1},
-            {   3,    0,    1,    1,    1,    0,    3},
-            {  -3,   -4,    0,    0,    0,   -4,   -3},
-            {   6,   -3,    2,    2,    2,   -3,    6},
+            { 500,  -25,   25,    3,   25,  -25,  500},
+            { -25, -150,    0,    0,    0, -150,  -25},
+            {  25,    0,    3,    3,    3,    0,   25},
+            {   3,    0,    3,    3,    3,    0,    3},
+            {  25,    0,    3,    3,    3,    0,   25},
+            {   3,    0,    3,    3,    3,    0,    3},
+            {  25,    0,    3,    3,    3,    0,   25},
+            { -25, -150,    0,    0,    0, -150,  -25},
+            { 500,  -25,   25,    3,   25,  -25,  500},
          };
 
         public OthelloBoard()
@@ -43,6 +43,64 @@ namespace IACapocasaleMoulin
         public OthelloBoard(int[,] board)
         {
             theBoard = (int[,])board.Clone();
+        }
+
+        /// <summary>
+        /// Return in a tuple the number of pawn opponent and current user in the board.
+        /// The first tuple item is the number of current user pawn
+        /// The second tuple item is the number of opponent player pawn
+        /// </summary>
+        /// <returns>The tuple with the number of pwan by player</returns>
+        public static Tuple<int, int> CountPawn(int[,] theBoard)
+        {
+            int nbUserToken = 0;
+            int nbOpponentToken = 0;
+            
+            for (int line = 0; line < BOARDSIZE_Y; line++)
+            {
+                for (int col = 0; col < BOARDSIZE_X; col++)
+                {
+                    if(theBoard[col, line] == 1)
+                    {
+                        nbUserToken++;
+                    }
+                    else if(theBoard[col, line] == 0)
+                    {
+                        nbOpponentToken++;
+                    }
+                }
+            }
+            return new Tuple<int, int>(nbUserToken, nbOpponentToken);
+        }
+
+        /// <summary>
+        /// Return in a tuple the number of captured corner for the opponent and for the current user in the board.
+        /// The first tuple item is the number of capturer corner for the user pawn
+        /// The second tuple item is the number of captured corner for the opponent player pawn
+        /// </summary>
+        /// <returns>The tuple with the number of captured corner by player</returns>
+        public Tuple<int,int> CountCorner(int[,] theBoard)
+        {
+            int nbUserCorner = 0;
+            int nbOpponentCorner = 0;
+
+            //List of corner coordinate
+            List<Tuple<int, int>> cornerCoords = new List<Tuple<int, int>> { new Tuple<int, int>(0,0),
+                                                                           new Tuple<int, int>(0, BOARDSIZE_Y),
+                                                                           new Tuple<int, int>(BOARDSIZE_X, 0),
+                                                                           new Tuple<int, int>(BOARDSIZE_X, BOARDSIZE_Y)};
+            foreach(Tuple<int,int> cornerCoord in cornerCoords)
+            {
+                if(theBoard[cornerCoord.Item1, cornerCoord.Item2] == 1)
+                {
+                    nbUserCorner++;
+                }
+                else if(theBoard[cornerCoord.Item1, cornerCoord.Item2] == 2)
+                {
+                    nbOpponentCorner++;
+                }
+            }
+            return new Tuple<int, int>(nbUserCorner, nbOpponentCorner);
         }
         
 
@@ -101,7 +159,15 @@ namespace IACapocasaleMoulin
                 // Create the root node and pass them to the alphabeta algo
                  TreeNode root = new TreeNode(this, whiteTurn);
                  Tuple<int, Tuple<int, int>> move = AlphaBetaAlgo.Alphabeta(root, level, 1, int.MaxValue);
-                 return move.Item2;
+                if(possibleMoves.Contains(move.Item2))
+                {
+                    return move.Item2;
+                }
+                else
+                {
+                    return null;
+                }
+
              }
 
         }
