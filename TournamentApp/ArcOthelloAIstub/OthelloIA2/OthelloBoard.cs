@@ -60,13 +60,16 @@ namespace IACapocasaleMoulin
             {
                 for (int col = 0; col < BOARDSIZE_X; col++)
                 {
-                    if(theBoard[col, line] == playerVal)
+                    if(theBoard[col, line] != -1)
                     {
-                        nbUserToken++;
-                    }
-                    else
-                    {
-                        nbOpponentToken++;
+                        if (theBoard[col, line] == playerVal)
+                        {
+                            nbUserToken++;
+                        }
+                        else
+                        {
+                            nbOpponentToken++;
+                        }
                     }
                 }
             }
@@ -91,13 +94,16 @@ namespace IACapocasaleMoulin
                                                                            new Tuple<int, int>(BOARDSIZE_X - 1,0)};
             foreach(Tuple<int,int> cornerCoord in cornerCoords)
             {
-                if(theBoard[cornerCoord.Item1, cornerCoord.Item2] == playerVal)
+                if (theBoard[cornerCoord.Item1, cornerCoord.Item2] != -1)
                 {
-                    nbUserCorner++;
-                }
-                else
-                {
-                    nbOpponentCorner++;
+                    if (theBoard[cornerCoord.Item1, cornerCoord.Item2] == playerVal)
+                    {
+                        nbUserCorner++;
+                    }
+                    else
+                    {
+                        nbOpponentCorner++;
+                    }
                 }
             }
             return new Tuple<int, int>(nbUserCorner, nbOpponentCorner);

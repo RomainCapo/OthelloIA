@@ -28,7 +28,7 @@ namespace OthelloAIstub
         {
             int score = 0;
             int[,] theBoard = board.GetBoard();
-            int playerVal = isWhitePlayer ? 1 : 0; // Get the player value in the board array
+            int playerVal = isWhitePlayer ? 0 : 1; // Get the player value in the board array
 
             for (int i = 0; i < theBoard.GetLength(0); i++)
             {
@@ -36,13 +36,17 @@ namespace OthelloAIstub
                 {
                     int boardValue = theBoard[i, j];
 
-                    if (boardValue == playerVal)
+                    if(boardValue != -1)
                     {
-                        score += OthelloBoard.SCORE_MATRIX[i, j]; // Add the matrix score if is the correct player
-                    }
-                    else
-                    {
-                        score -= OthelloBoard.SCORE_MATRIX[i, j]; // Substract the matrix score if is the other player
+                        if (boardValue == playerVal)
+                        {
+                            score += OthelloBoard.SCORE_MATRIX[i, j]; // Add the matrix score if is the correct player
+                        }
+                        else
+                        {
+                            score -= OthelloBoard.SCORE_MATRIX[i, j]; // Substract the matrix score if is the other player
+
+                        }
                     }
                 }
             }
