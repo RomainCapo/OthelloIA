@@ -51,7 +51,7 @@ namespace IACapocasaleMoulin
         /// The second tuple item is the number of opponent player pawn
         /// </summary>
         /// <returns>The tuple with the number of pwan by player</returns>
-        public static Tuple<int, int> CountPawn(int[,] theBoard)
+        public static Tuple<int, int> CountPawn(int[,] theBoard, int playerVal)
         {
             int nbUserToken = 0;
             int nbOpponentToken = 0;
@@ -60,11 +60,11 @@ namespace IACapocasaleMoulin
             {
                 for (int col = 0; col < BOARDSIZE_X; col++)
                 {
-                    if(theBoard[col, line] == 1)
+                    if(theBoard[col, line] == playerVal)
                     {
                         nbUserToken++;
                     }
-                    else if(theBoard[col, line] == 0)
+                    else
                     {
                         nbOpponentToken++;
                     }
@@ -79,23 +79,23 @@ namespace IACapocasaleMoulin
         /// The second tuple item is the number of captured corner for the opponent player pawn
         /// </summary>
         /// <returns>The tuple with the number of captured corner by player</returns>
-        public Tuple<int,int> CountCorner(int[,] theBoard)
+        public static Tuple<int,int> CountCorner(int[,] theBoard, int playerVal)
         {
             int nbUserCorner = 0;
             int nbOpponentCorner = 0;
 
             //List of corner coordinate
             List<Tuple<int, int>> cornerCoords = new List<Tuple<int, int>> { new Tuple<int, int>(0,0),
-                                                                           new Tuple<int, int>(0, BOARDSIZE_Y),
-                                                                           new Tuple<int, int>(BOARDSIZE_X, 0),
-                                                                           new Tuple<int, int>(BOARDSIZE_X, BOARDSIZE_Y)};
+                                                                           new Tuple<int, int>(BOARDSIZE_X - 1, BOARDSIZE_Y - 1),
+                                                                           new Tuple<int, int>(0, BOARDSIZE_Y - 1),
+                                                                           new Tuple<int, int>(BOARDSIZE_X - 1,0)};
             foreach(Tuple<int,int> cornerCoord in cornerCoords)
             {
-                if(theBoard[cornerCoord.Item1, cornerCoord.Item2] == 1)
+                if(theBoard[cornerCoord.Item1, cornerCoord.Item2] == playerVal)
                 {
                     nbUserCorner++;
                 }
-                else if(theBoard[cornerCoord.Item1, cornerCoord.Item2] == 2)
+                else
                 {
                     nbOpponentCorner++;
                 }

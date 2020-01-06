@@ -47,15 +47,26 @@ namespace OthelloAIstub
                 }
             }
 
-            Tuple<int, int> nbPawns = OthelloBoard.CountPawn(theBoard);
+            Tuple<int, int> nbPawns = OthelloBoard.CountPawn(theBoard, playerVal);
 
-            score += 25 * ((nbPawns.Item1 + nbPawns.Item2) % 2);//Add a weight if the current user play the last move
+            score += 25 * ((nbPawns.Item1 + nbPawns.Item2 + 1) % 2);//Add a weight if the current user play the last move
 
-            score += 25 * ((nbPawns.Item1 - nbPawns.Item2) / (nbPawns.Item1 + nbPawns.Item2));//Add a weight from the pawn parity
+           score += 25 * ((nbPawns.Item1 - nbPawns.Item2) / (nbPawns.Item1 + nbPawns.Item2));//Add a weight from the pawn parity
 
-            Tuple<int, int> nbCorners = OthelloBoard.CountPawn(theBoard);
+            Tuple<int, int> nbCorners = OthelloBoard.CountCorner(theBoard, playerVal);
 
-            score += 25 * (nbCorners.Item1 - nbCorners.Item2) / (nbCorners.Item1 + nbCorners.Item2);//Add weight from the number of captured corner
+            if(nbCorners.Item1 + nbCorners.Item2 != 0)
+            {
+                score += 100 * (nbCorners.Item1 - nbCorners.Item2) / (nbCorners.Item1 + nbCorners.Item2);//Add weight from the number of captured corner
+            }
+
+            int nbMovesUser = board.GetPossibleMove(isWhitePlayer).Count;
+            int nbMovesOpp = board.GetPossibleMove(!isWhitePlayer).Count;
+
+            if(nbMovesUser + nbMovesOpp != 0)
+            {
+                score += 25 * (nbMovesUser - nbMovesOpp) / (nbMovesUser + nbMovesOpp);
+            }
 
             // If the state is final
             if (IsFinal())
