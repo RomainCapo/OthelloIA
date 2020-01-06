@@ -28,24 +28,23 @@ namespace OthelloAIstub
         {
             int score = 0;
             int[,] theBoard = board.GetBoard();
-            int playerVal = isWhitePlayer ? 0 : 1; // Get the player value in the board array
+            int playerVal = isWhitePlayer ? 1 : 0; // Get the player value in the board array
 
-            for (int i = 0; i < theBoard.GetLength(0); i++)
+            for (int i = 0; i < theBoard.GetLength(1); i++)
             {
-                for (int j = 0; j < theBoard.GetLength(1); j++)
+                for (int j = 0; j < theBoard.GetLength(0); j++)
                 {
-                    int boardValue = theBoard[i, j];
+                    int boardValue = theBoard[j, i];
 
                     if(boardValue != -1)
                     {
                         if (boardValue == playerVal)
                         {
-                            score += OthelloBoard.SCORE_MATRIX[i, j]; // Add the matrix score if is the correct player
+                            score += OthelloBoard.SCORE_MATRIX[j, i]; // Add the matrix score if is the correct player
                         }
                         else
                         {
-                            score -= OthelloBoard.SCORE_MATRIX[i, j]; // Substract the matrix score if is the other player
-
+                            score -= OthelloBoard.SCORE_MATRIX[j, i]; // Substract the matrix score if is the other player
                         }
                     }
                 }
@@ -55,7 +54,7 @@ namespace OthelloAIstub
 
             score += 25 * ((nbPawns.Item1 + nbPawns.Item2 + 1) % 2);//Add a weight if the current user play the last move
 
-           score += 25 * ((nbPawns.Item1 - nbPawns.Item2) / (nbPawns.Item1 + nbPawns.Item2));//Add a weight from the pawn parity
+            score += 25 * ((nbPawns.Item1 - nbPawns.Item2) / (nbPawns.Item1 + nbPawns.Item2));//Add a weight from the pawn parity
 
             Tuple<int, int> nbCorners = OthelloBoard.CountCorner(theBoard, playerVal);
 
@@ -64,29 +63,22 @@ namespace OthelloAIstub
                 score += 100 * (nbCorners.Item1 - nbCorners.Item2) / (nbCorners.Item1 + nbCorners.Item2);//Add weight from the number of captured corner
             }
 
-            int nbMovesUser = board.GetPossibleMove(isWhitePlayer).Count;
-            int nbMovesOpp = board.GetPossibleMove(!isWhitePlayer).Count;
-
-            if(nbMovesUser + nbMovesOpp != 0)
-            {
-                score += 25 * (nbMovesUser - nbMovesOpp) / (nbMovesUser + nbMovesOpp);
-            }
-
             // If the state is final
             if (IsFinal())
             {
                 // If the score is positive, the user win
                 if (score > 0)
                 {
-                    return Int32.MaxValue;
+                    return Int32.MaxValue-1;
                 }
                 else // If the score is negative, the user loose
                 {
-                    return Int32.MinValue;
+                    return Int32.MinValue+1;
                 }
             }
 
             return score;
+             
         }
 
         /// <summary>

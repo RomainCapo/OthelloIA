@@ -165,13 +165,15 @@ namespace IACapocasaleMoulin
                 // Create the root node and pass them to the alphabeta algo
                  TreeNode root = new TreeNode(this, whiteTurn);
                  Tuple<int, Tuple<int, int>> move = AlphaBetaAlgo.Alphabeta(root, level, 1, int.MaxValue);
+               
+
                 if(possibleMoves.Contains(move.Item2))
                 {
                     return move.Item2;
                 }
                 else
                 {
-                    return null;
+                    return possibleMoves[0];
                 }
 
              }

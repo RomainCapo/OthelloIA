@@ -25,7 +25,7 @@ namespace OthelloAIstub
             foreach (Tuple<int, int> move in root.ListOps())
             {
                 TreeNode newNode = root.ApplyOp(move);
-                Tuple<int, Tuple<int, int>> newMove = Alphabeta(newNode, depth - 1, -minOrMax, optVal);
+                Tuple<int, Tuple<int, int>> newMove = Alphabeta(newNode, depth-1, -minOrMax, optVal);
 
                 if ((newMove.Item1 * minOrMax) > (optVal * minOrMax))
                 {
