@@ -1,4 +1,4 @@
-﻿using IACapocasaleMoulin;
+using IACapocasaleMoulin;
 using System;
 using System.Collections.Generic;
 
@@ -21,7 +21,7 @@ namespace OthelloAIstub
         }
 
         /// <summary>
-        /// Score function. Return a score for a given board for each box.
+        /// Score function. Return a score for a given board.
         /// </summary>
         /// <returns>Returns a score for a given board</returns>
         public int Score()
