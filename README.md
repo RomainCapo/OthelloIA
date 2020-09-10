@@ -1,7 +1,11 @@
 # OthelloIA
-``Capocasale Romain et Moulin Vincent``
-``INF3dlm-a``
-``HE-ARC``
+
+Projet réalisé durant le 5ème semestre de Bachelor dans le cours d'inteligence artificielle.
+
+## Team
+
+* Romain Capocasale [@RomainCapo](https://github.com/RomainCapo)
+* Vincent Moulin [@dicksor](https://github.com/dicksor)
 
 ## Fonction de score
 La fonction de score est composé de 5 étapes :
